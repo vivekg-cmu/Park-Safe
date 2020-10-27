@@ -6,7 +6,7 @@ incident_df = pd.read_csv('../filtered_data/Filtered_Incident_Report.csv')
 
 # Population and Population density
 population_df = pd.read_csv('../filtered_data/nbr_population.csv')
-nbr_incident_df = incident_df['Analysis Neighborhood'].value_counts().to_frame().reset_index()
+nbr_incident_df = incident_df['neighborhood_adjusted'].value_counts().to_frame().reset_index()
 nbr_incident_df.columns = ['neighborhood', 'theft_count']
 # %%
 def permutation_test(series1, series2, no_iter=1000):
@@ -29,6 +29,6 @@ print('Empirical p-val: {:.4f}'.format(pval))
 '''
 merged_df = nbr_incident_df.merge(population_df)...
 Correlation b/w neighborhood population and vehicle theft count:
-Pearson r: 0.75
-Empirical p-val: 0.0010
+Pearson r: 0.68
+Empirical p-val: 0.0001
 '''

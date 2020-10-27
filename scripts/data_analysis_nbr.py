@@ -13,10 +13,10 @@ with open(sf_neighborhood_geo, 'r') as f:
     geo_data = json.load(f)
 
 incident_df = pd.read_csv('../filtered_data/Filtered_Incident_Report.csv')
-incident_df = incident_df[['Incident Datetime', 'Analysis Neighborhood']]
+incident_df = incident_df[['Incident Datetime', 'neighborhood_adjusted']]
 incident_df['Incident Datetime'] = list(map(lambda x: datetime.strptime(x, '%Y/%m/%d %I:%M:%S %p'), incident_df['Incident Datetime']))
-incident_df.replace(['Bayview Hunters Point', 'Financial District/South Beach', 'Sunset/Parkside', 'Castro/Upper Market', 'Lone Mountain/USF', 'Oceanview/Merced/Ingleside', 'Twin Peaks', 'Presidio', 'Lincoln Park'],
-                    ['Bayview', 'Financial District', 'Parkside', 'Castro', 'Lone Mountain', 'Oceanview', 'Upper Market', 'Presidio Heights', 'Lincoln Park / Ft. Miley'], inplace=True)
+# incident_df.replace(['Bayview Hunters Point', 'Financial District/South Beach', 'Sunset/Parkside', 'Castro/Upper Market', 'Lone Mountain/USF', 'Oceanview/Merced/Ingleside', 'Twin Peaks', 'Presidio', 'Lincoln Park'],
+#                     ['Bayview', 'Financial District', 'Parkside', 'Castro', 'Lone Mountain', 'Oceanview', 'Upper Market', 'Presidio Heights', 'Lincoln Park / Ft. Miley'], inplace=True)
 # %%
 
 
@@ -60,10 +60,10 @@ def plot_neigborhood_crime(year, month, dow, hour):
     dow = dow_options.index(dow)-1 if dow!='All' else dow
     filter_dt = lambda dt: (year=='All' or dt.year==year) and (month=='All' or dt.month==month) and (dow=='All' or dt.weekday()==dow) and (hour=='All' or dt.hour==hour)
     filter_df = (incident_df.loc[[filter_dt(dt) for dt in incident_df['Incident Datetime']], :]
-                 .groupby(['Analysis Neighborhood'], as_index=False)
+                 .groupby(['neighborhood_adjusted'], as_index=False)
                  .count()
                  .rename(columns={'Incident Datetime': 'Theft Count',
-                                  'Analysis Neighborhood': 'Neighborhood'})
+                                  'neighborhood_adjusted': 'Neighborhood'})
                  )
 
     return create_map(filter_df)
