@@ -12,7 +12,7 @@ sf_loc = (37.76, -122.44)
 with open(sf_neighborhood_geo, 'r') as f:
     geo_data = json.load(f)
 
-incident_df = pd.read_csv('../filtered_data/Filtered_Incident_Report.csv')
+incident_df = pd.read_csv('../filtered_data/Filtered_Incident_Report2.csv')
 incident_df = incident_df[['Incident Datetime', 'neighborhood_adjusted']]
 incident_df['Incident Datetime'] = list(map(lambda x: datetime.strptime(x, '%Y/%m/%d %I:%M:%S %p'), incident_df['Incident Datetime']))
 # incident_df.replace(['Bayview Hunters Point', 'Financial District/South Beach', 'Sunset/Parkside', 'Castro/Upper Market', 'Lone Mountain/USF', 'Oceanview/Merced/Ingleside', 'Twin Peaks', 'Presidio', 'Lincoln Park'],
@@ -68,3 +68,7 @@ def plot_neigborhood_crime(year, month, dow, hour):
 
     return create_map(filter_df)
 # %%
+import matplotlib.pyplot as plt
+crime_count_by_nbr = incident_df['neighborhood_adjusted'].value_counts()
+plt.xlabel('#vehicle crime')
+crime_count_by_nbr[:10].plot(kind='barh')

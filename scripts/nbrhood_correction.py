@@ -6,7 +6,7 @@ import pandas as pd
 import json
 
 # %%
-incident_df = pd.read_csv('../filtered_data/Filtered_Incident_Report.csv')
+incident_df = pd.read_csv('../filtered_data/Filtered_Incident_Report2.csv')
 with open('../filtered_data/sf_neighborhoods.geojson', 'r') as f:
     geo_data = json.load(f)
 
@@ -29,5 +29,5 @@ for lon, lat in zip(incident_df['Longitude'], incident_df['Latitude']):
 # %%
 incident_df.drop('Unnamed: 0', axis=1, inplace=True)
 incident_df['neighborhood_adjusted'] = nbr_adjusted
-incident_df.to_csv('../filtered_data/Filtered_Incident_Report.csv')
+incident_df.to_csv('../filtered_data/Filtered_Incident_Report2.csv')
 # %%

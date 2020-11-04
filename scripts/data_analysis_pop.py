@@ -2,7 +2,7 @@
 import pandas as pd
 from random import shuffle
 
-incident_df = pd.read_csv('../filtered_data/Filtered_Incident_Report.csv')
+incident_df = pd.read_csv('../filtered_data/Filtered_Incident_Report2.csv')
 
 # Population and Population density
 population_df = pd.read_csv('../filtered_data/nbr_population.csv')
