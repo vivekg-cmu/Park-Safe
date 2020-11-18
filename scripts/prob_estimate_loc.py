@@ -63,22 +63,22 @@ stat, p, med, tbl = median_test(prob_incident_list, prob_random_list)
 
 prob_file = 'loc_prob.npy'
 data_df = pd.read_csv('../filtered_data/Dataset2_2019.csv')
-start, end = 0, data_df.shape[0]    # CHANGE THIS LINE
+startx, end = (2*data_df.shape[0])//3, data_df.shape[0]    # CHANGE THIS LINE
 
 prob = list()
 if prob_file in os.listdir():
     prob = list(np.load(prob_file))
-    start = len(prob)
-print(f'loaded {start} records')
+start = startx+len(prob)
+print(f'loaded {len(prob)} records')
 
 # %%
 start_time = datetime.now()
-for i in range(start, start+10):
+for i in range(start, end):
     row = data_df.iloc[i]
     prob.append(prob_loc(row['latitude'], row['longitude']))
     if len(prob) % 10 == 0:
         time_diff = (datetime.now() - start_time).seconds
-        print('{:02d}:{:02d} | Processed [{}/{}] records'.format(time_diff//60, time_diff % 60, len(prob), end-start))
+        print('{:02d}:{:02d} | Processed [{}/{}] records'.format(time_diff//60, time_diff % 60, len(prob), end-startx))
     if len(prob) % 50 == 0:
         print('{:02d}:{:02d} | Saving {} records'.format(time_diff//60, time_diff % 60, len(prob)))
         np.save(prob_file, np.array(prob))
