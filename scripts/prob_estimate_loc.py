@@ -73,7 +73,7 @@ print(f'loaded {start} records')
 
 # %%
 start_time = datetime.now()
-for i in range(start, start+10):
+for i in range(start, end):
     row = data_df.iloc[i]
     prob.append(prob_loc(row['latitude'], row['longitude']))
     if len(prob) % 10 == 0:
