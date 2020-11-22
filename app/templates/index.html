@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>Park-Safe</title>
+    </head>
+    <body>
+        <form action="{{ url_for('find_parking') }}" method="POST">
+            <label>Latitude: </label>
+            <input type="number" value="37.76" name="latitude" />
+            Longitude:
+            <input type="number" value="-122.44" name="longitude" />
+            <input type="submit" value="Find Parking Spots!">
+        </form>
+        {% include "map.html" %}
+    </body>
+</html>
