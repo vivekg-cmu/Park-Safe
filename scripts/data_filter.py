@@ -8,7 +8,7 @@ filtered_data_df = data_df.filter(['Incident Datetime', 'Incident Description', 
 filtered_data_df = filtered_data_df.loc[[desc.startswith('Vehicle, Stolen') for desc in filtered_data_df['Incident Description']], :]
 filtered_data_df.to_csv('../filtered_data/Filtered_Incident_Report.csv')
 # %%
-filtered_parking_meter_df = parking_meter_df.filter(['PARKING_SPACE_ID', 'POST_ID', 'ACTIVE_METER_FLAG', 'STREET_NAME', 'shape'], axis=1)
+filtered_parking_meter_df = parking_meter_df.filter(['POST_ID', 'ACTIVE_METER_FLAG', 'LATITUDE', 'LONGITUDE'], axis=1)
 filtered_parking_meter_df = filtered_parking_meter_df[filtered_parking_meter_df['ACTIVE_METER_FLAG']=='M']
 filtered_parking_meter_df.drop(['ACTIVE_METER_FLAG'], axis=1, inplace=True)
 filtered_parking_meter_df.to_csv('../filtered_data/Filtered_Parking_Meter.csv')
